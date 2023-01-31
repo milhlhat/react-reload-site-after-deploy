@@ -9,10 +9,8 @@ class AlertUpdateVersionPlugin {
     }
     // apply(compiler: Compiler) {
     apply(compiler) {
-        console.info("AlertUpdateVersionPlugin is running...");
         // alert after build production finished
-        compiler.hooks.afterCompile.tap('AlertUpdateVersionPlugin', (modules) => {
-
+        compiler.hooks.done.tap('AlertUpdateVersionPlugin', (modules) => {
             const fs = require('fs');
             fs.writeFile(this.FILE_PATH,
                 Number(new Date()).toString(),
@@ -20,7 +18,7 @@ class AlertUpdateVersionPlugin {
                     if (err) {
                         return console.log(err);
                     }
-                    console.log("Generate builtVersion success!");
+                    console.info("✅ Generate builtVersion success!");
                 }
             );
 
