@@ -20,9 +20,9 @@ const getBuiltVersion = async () => {
       <button onClick={() => {
         getBuiltVersion();
       }}>Load version: {builtVersion}</button>
-      <h1>Hello, world!ss!</h1>
-      <img src={ConversationSvg} alt="conversation" />
-      <Import />
+      <h1>Hello, world!</h1>
+      {/* <img src={ConversationSvg} alt="conversation" />
+      <Import /> */}
 
     </div>
   );

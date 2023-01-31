@@ -5,7 +5,7 @@ export const getFile = function (filePath: string) {
   
     return axios.get(filePath, {
         headers: {
-            // caches: 'no-cache',
+            caches: 'no-cache',
         }
     })
         .then(function (response) {
