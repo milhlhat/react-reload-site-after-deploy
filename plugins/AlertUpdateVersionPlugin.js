@@ -1,15 +1,10 @@
-/** @typedef {import("fs") } fs */
-
 // const Compilation = require("webpack/lib/Compilation");
 // import { Compilation } from "webpack";
 class AlertUpdateVersionPlugin {
     options;
-    FILE_PATH = '/builtVersion.txt';
+    FILE_PATH = '/buildVersion.txt';
     constructor(options) {
-        this.options = options || {
-            isGenerate: true,
-            path: '',
-        };
+        this.options = options || {path: ''};
         this.FILE_PATH = this.options.path + this.FILE_PATH;
     }
     // apply(compiler: Compiler) {

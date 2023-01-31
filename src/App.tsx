@@ -1,30 +1,45 @@
 import React from 'react';
-import { Import } from 'yody-ui';
+import logo from './logo.svg';
+import './App.css';
 import { getFile } from './getFile';
-import ConversationSvg from './icon-conversation.svg';
 
 function App() {
-  const [builtVersion, setBuiltVersion] = React.useState('');
-const getBuiltVersion = async () => {
-  try {
-     getFile('/builtVersion.txt').then((res) => {
-      console.log(res)
-      setBuiltVersion(res);
-      });
-  } catch (error) {
-    console.log(error)
-  }
-}
-  return (
-    <div>
-      <button onClick={() => {
-        getBuiltVersion();
-      }}>Load version: {builtVersion}</button>
-      <h1>Hello, world!</h1>
-      {/* <img src={ConversationSvg} alt="conversation" />
-      <Import /> */}
+  const [buildVersion, setBuildVersion] = React.useState<string>('')
 
+  const getBuildVersion = async () => {
+    if (process.env.NODE_ENV === 'development') {
+      return;
+    }
+    try {
+      const publicUrl = process.env.PUBLIC_URL;
+      const file = `/buildVersion.txt?${Date.now()}`
+      const path = publicUrl ? publicUrl + file : file;
+      const res = await getFile(path);
+
+      setBuildVersion(res)
+    } catch (error) {
+      console.error(error)
+      setBuildVersion('')
+    }
+  }
+  return (
+    <div className="App" onClick={getBuildVersion}>
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Build version: '<code>{buildVersion}</code>'
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
+
 export default App;
